@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import { Sriracha, Poppins } from 'next/font/google'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
+import { GlobalContainer } from '@/components/GlobalContainer'
 
 const SrirachaFont = Sriracha({
   subsets: ['latin'],
@@ -28,7 +29,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         className={`${SrirachaFont.variable} ${poppinsFont.variable} bg-gray-900`}
       >
         <Header />
-        {children}
+        <GlobalContainer>{children}</GlobalContainer>
         <Footer />
       </body>
     </html>
