@@ -26,7 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body
-        className={`${SrirachaFont.variable} ${poppinsFont.variable} bg-gray-900`}
+        className={`${SrirachaFont.variable} ${poppinsFont.variable} bg-zinc-400`}
       >
         <Header />
         <GlobalContainer>{children}</GlobalContainer>
