@@ -1,4 +1,7 @@
 {
-  "extends": "@rocketseat/eslint-config/react"
+  "extends": "@rocketseat/eslint-config/react",
+  "rules": {
+    "no-absolute-path": "off"
+  }
   // "extends": "@rocketseat/eslint-config/node"
 }
