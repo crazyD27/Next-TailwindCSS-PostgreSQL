@@ -2,6 +2,8 @@
 import React from 'react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
+import { useAuthContext } from '@/contexts/authContext'
+import { useRouter } from 'next/navigation'
 
 interface IFormProps {
   email: string
@@ -9,6 +11,9 @@ interface IFormProps {
 }
 
 export const LoginForm = () => {
+  const { userLogin } = useAuthContext()
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -16,7 +21,7 @@ export const LoginForm = () => {
   } = useForm<IFormProps>()
 
   const handleLoginUser = (user: IFormProps) => {
-    console.log(user)
+    userLogin(user).then((response) => router.push('/'))
   }
 
   return (
