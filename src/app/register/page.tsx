@@ -4,6 +4,13 @@ import { RegisterForm } from '@/components/Forms/RegisterForm'
 import Image from 'next/image'
 import RegisterImage from '/public/register-image.png'
 
+export async function generateMetadata() {
+  return {
+    title: 'TodoNext - Cadastro',
+    description: 'Página de cadastro, crie sua conta e gerencie suas tarefas.',
+  }
+}
+
 const Register = () => {
   return (
     <div className="mt-5 flex w-full items-center justify-center sm:mt-8">
