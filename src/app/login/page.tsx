@@ -4,6 +4,9 @@ import Image from 'next/image'
 
 import { LoginForm } from '@/components/Forms/LoginForm'
 import RegisterImage from '/public/register-image.png'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../api/auth/[...nextauth]/route'
+import { redirect } from 'next/navigation'
 
 export async function generateMetadata() {
   return {
@@ -12,7 +15,10 @@ export async function generateMetadata() {
   }
 }
 
-const Login = () => {
+const Login = async () => {
+  const session = await getServerSession(authOptions)
+
+  if (session) return redirect('/')
   return (
     <div className="mt-5 flex w-full items-center justify-center sm:mt-8">
       <div className="flex w-full max-w-[700px] flex-col justify-between gap-8 rounded-xl bg-zinc-50 p-6 sm:flex-row">

@@ -2,6 +2,7 @@
 import React from 'react'
 import { Github } from 'lucide-react'
 import { BiLogoGmail } from 'react-icons/bi'
+import { signIn } from 'next-auth/react'
 
 export const LoginForm = () => {
   return (
@@ -13,12 +14,18 @@ export const LoginForm = () => {
         </p>
       </div>
       <div className="mt-7 flex w-full flex-col items-center justify-center gap-2">
-        <button className="flex w-full max-w-[400px] items-center justify-center gap-1 rounded-md bg-red-400 py-3 font-medium text-white transition-colors hover:bg-red-300">
+        <button
+          onClick={() => signIn('google')}
+          className="flex w-full max-w-[400px] items-center justify-center gap-1 rounded-md bg-red-400 py-3 font-medium text-white transition-colors hover:bg-red-300"
+        >
           <BiLogoGmail size={24} />
           Google
         </button>
         <span className="text-center font-title">ou</span>
-        <button className="flex w-full max-w-[400px] items-center justify-center gap-1 rounded-md bg-zinc-800 py-3 font-medium text-white transition-colors hover:bg-zinc-700">
+        <button
+          onClick={() => signIn('github')}
+          className="flex w-full max-w-[400px] items-center justify-center gap-1 rounded-md bg-zinc-800 py-3 font-medium text-white transition-colors hover:bg-zinc-700"
+        >
           <Github />
           GitHub
         </button>
