@@ -1,9 +1,11 @@
 import NextAuth from 'next-auth'
-import type { NextAuthOptions } from 'next-auth'
-
-import GitHubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
+import GitHubProvider from 'next-auth/providers/github'
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
 
+import { prisma } from '../../../../utils/prisma'
+
+import type { NextAuthOptions } from 'next-auth'
 export const authOptions: NextAuthOptions = {
   providers: [
     GitHubProvider({
@@ -19,6 +21,10 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/login',
   },
+  session: {
+    strategy: 'jwt',
+  },
+  adapter: PrismaAdapter(prisma),
 }
 const handler = NextAuth(authOptions)
 export { handler as GET, handler as POST }
