@@ -1,6 +1,6 @@
 import { useGetUser } from '@/hooks/useGetUser'
 import Image from 'next/image'
-import ImageDefault from '/public/user-default.png'
+import ImageDefault from '/public/profile-default.png'
 
 const Profile = async () => {
   const { session } = await useGetUser()
@@ -12,16 +12,16 @@ const Profile = async () => {
             src={session.user.image}
             alt={`Foto do usuário ${session.user.name}`}
             className="rounded-full"
-            height={220}
-            width={220}
+            height={200}
+            width={200}
           />
         ) : (
           <Image
             src={ImageDefault}
             alt={`Foto do usuário ${session?.user?.name}`}
             className="rounded-full"
-            height={240}
-            width={240}
+            height={200}
+            width={200}
           />
         )}
       </div>
