@@ -68,15 +68,6 @@ export const LoginForm = () => {
         <button className="w-full rounded-md bg-blue-600 py-3 text-center font-medium text-white">
           Entrar
         </button>
-        <p className="mt-2 text-center font-body text-sm italic text-zinc-500">
-          Não possui uma conta?{' '}
-          <Link
-            href="/register"
-            className="font-body font-medium text-blue-600 hover:text-blue-700"
-          >
-            Cadastrar
-          </Link>
-        </p>
       </form>
       <div className="flex w-full items-center justify-center gap-2">
         <button
@@ -94,6 +85,15 @@ export const LoginForm = () => {
           GitHub
         </button>
       </div>
+      <p className="mt-2 text-center font-body text-sm italic text-zinc-500">
+        Não possui uma conta?{' '}
+        <Link
+          href="/register"
+          className="font-body font-medium text-blue-600 hover:text-blue-700"
+        >
+          Cadastrar
+        </Link>
+      </p>
     </div>
   )
 }
