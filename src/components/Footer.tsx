@@ -3,7 +3,7 @@ import React from 'react'
 
 export const Footer = () => {
   return (
-    <footer className="flex w-full items-center justify-center bg-zinc-600">
+    <footer className="flex w-full items-center justify-center bg-zinc-900">
       <div className="flex w-full max-w-[1300px] items-center justify-between p-3 ">
         <ul className="flex list-none flex-col gap-2">
           <li className="font-body text-sm text-zinc-50 hover:text-zinc-200">
