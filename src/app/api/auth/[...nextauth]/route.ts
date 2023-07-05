@@ -3,7 +3,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import bcrypt from 'bcrypt'
-import { prisma } from '../../../../utils/prisma'
+import { prisma } from '@/utils/prisma'
 
 import type { NextAuthOptions } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
@@ -56,6 +56,19 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  callbacks: {
+    async session({ session, token, user }) {
+      session = {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.sub as string,
+        },
+      }
+
+      return session
+    },
+  },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: '/login',
