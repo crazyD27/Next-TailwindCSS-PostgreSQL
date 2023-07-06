@@ -43,6 +43,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   password      String?
+  Task          Task[]
 }
 
 model VerificationToken {
@@ -51,4 +52,14 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Task {
+  id             String   @id @default(uuid())
+  title          String
+  dateConclusion String
+  description    String
+  createdAt      DateTime @default(now())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
 }
