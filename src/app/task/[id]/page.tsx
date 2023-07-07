@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { formateDateToShow } from '@/utils/formateDate'
-import { ButtonConfirmTask } from '@/components/ButtonConfirmTask'
+import { ButtonsTask } from '@/components/ButtonsTask'
 import { useTasks } from '@/hooks/useTasks'
 import { redirect } from 'next/navigation'
 
@@ -42,7 +42,7 @@ const Task = async ({ params: { id } }: IParamProps) => {
           </p>
         </div>
         <div className="mt-1">
-          <ButtonConfirmTask id={task.id} status={task.status} />
+          <ButtonsTask id={task.id} status={task.status} />
         </div>
       </div>
       <div className="mt-3 flex flex-col gap-1">
