@@ -1,7 +1,9 @@
-import { headers } from 'next/headers'
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { formateDateToShow } from '@/utils/formateDate'
+import { ButtonConfirmTask } from '@/components/ButtonConfirmTask'
+import { useTasks } from '@/hooks/useTasks'
+import { redirect } from 'next/navigation'
 
 interface IParamProps {
   params: {
@@ -9,19 +11,14 @@ interface IParamProps {
   }
 }
 
-interface ITaskProps {
-  id: string
-  title: string
-  dateConclusion: string
-  description: string
-}
-
 const Task = async ({ params: { id } }: IParamProps) => {
-  const response = await fetch(`http://localhost:3000/api/tasks/${id}`, {
-    headers: headers(),
-  })
+  const { getTask } = useTasks()
 
-  const task: ITaskProps = await response.json()
+  const task = await getTask(id)
+
+  if (!task) {
+    redirect('/')
+  }
 
   return (
     <div className="m-auto w-full max-w-[500px]">
@@ -34,13 +31,19 @@ const Task = async ({ params: { id } }: IParamProps) => {
         </span>
         <span className="font-bold capitalize">{task.title}</span>
       </p>
-      <div className="mt-6 flex flex-col gap-1 sm:gap-2">
-        <h1 className="font-title text-2xl capitalize text-zinc-800 sm:text-3xl">
-          {task.title}
-        </h1>
-        <p className="font-body text-xs text-zinc-700 sm:text-sm">
-          {formateDateToShow(task.dateConclusion)} - Pendente
-        </p>
+      <div className="mt-6 flex items-center justify-between">
+        <div className="flex flex-col gap-1 sm:gap-2">
+          <h1 className="font-title text-2xl capitalize text-zinc-800 sm:text-3xl">
+            {task.title}
+          </h1>
+          <p className="font-body text-xs text-zinc-700 sm:text-sm">
+            {formateDateToShow(task.dateConclusion)} -{' '}
+            <span className="capitalize">{task.status}</span>
+          </p>
+        </div>
+        <div className="mt-1">
+          <ButtonConfirmTask id={task.id} status={task.status} />
+        </div>
       </div>
       <div className="mt-3 flex flex-col gap-1">
         <span className="font-body text-sm text-zinc-800 sm:text-lg">
