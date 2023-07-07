@@ -57,6 +57,7 @@ model VerificationToken {
 model Task {
   id             String   @id @default(uuid())
   title          String
+  status         String   @default("pendente")
   dateConclusion String
   description    String
   createdAt      DateTime @default(now())
