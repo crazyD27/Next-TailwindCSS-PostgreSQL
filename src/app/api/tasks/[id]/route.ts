@@ -9,6 +9,42 @@ interface IParamsProps {
   }
 }
 
+export async function GET(request: NextRequest, { params }: IParamsProps) {
+  const { session } = await useGetUser()
+
+  if (!session) {
+    return NextResponse.json({ error: 'Essa rota precisa de autenticação.' })
+  }
+
+  const taskShema = z.object({
+    id: z.string(),
+  })
+
+  const { id } = taskShema.parse(params)
+
+  const task = await prisma.task.findUnique({
+    where: {
+      id,
+    },
+  })
+
+  if (!task) {
+    return NextResponse.json(
+      { error: 'Tarefa não encontrada.' },
+      { status: 404 },
+    )
+  }
+
+  if (task.userId !== session.user.id) {
+    return NextResponse.json(
+      { error: 'Operação não permitida.' },
+      { status: 401 },
+    )
+  }
+
+  return NextResponse.json(task, { status: 200 })
+}
+
 export async function DELETE(request: NextRequest, { params }: IParamsProps) {
   const { session } = await useGetUser()
 
@@ -32,6 +68,13 @@ export async function DELETE(request: NextRequest, { params }: IParamsProps) {
     return NextResponse.json(
       { error: 'Tarefa não encontrada.' },
       { status: 404 },
+    )
+  }
+
+  if (task.userId !== session.user.id) {
+    return NextResponse.json(
+      { error: 'Operação não permitida.' },
+      { status: 401 },
     )
   }
 
@@ -75,7 +118,7 @@ export async function PUT(request: NextRequest, { params }: IParamsProps) {
       id,
     },
     data: {
-      status: 'concluído',
+      status: 'concluída',
     },
   })
 
