@@ -13,15 +13,40 @@ interface ITasksProps {
   userId: string
 }
 
+interface IFormProps {
+  title: string
+  dateConclusion: string
+  description: string
+}
+
 interface IUseTasksProps {
   tasks: ITasksProps[] | undefined
   finishTask: (id: string) => void
   deleteTask: (id: string) => void
+  createTask: (task: IFormProps) => void
+  loadingCreate: boolean
 }
 
 export const useTasks = (): IUseTasksProps => {
   const queryClient = useQueryClient()
   const router = useRouter()
+
+  const { mutate: createTask, isLoading: loadingCreate } = useMutation(
+    async (data: IFormProps) => {
+      await fetch('/api/tasks', {
+        body: JSON.stringify(data),
+        method: 'POST',
+      })
+    },
+    {
+      onSuccess: () => {
+        queryClient.refetchQueries(['tasks'])
+
+        router.push('/')
+        toast.success('Tarefa criada com sucesso!')
+      },
+    },
+  )
 
   const { data: tasks } = useQuery(
     ['tasks'],
@@ -86,5 +111,5 @@ export const useTasks = (): IUseTasksProps => {
     },
   )
 
-  return { tasks, finishTask, deleteTask }
+  return { tasks, createTask, finishTask, deleteTask, loadingCreate }
 }
