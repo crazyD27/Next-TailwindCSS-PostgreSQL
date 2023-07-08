@@ -1,6 +1,6 @@
 'use client'
+import { useTasks } from '@/hooks/useTasks'
 import { Check, Trash2 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 
 interface IButtonsTaskProps {
   id: string
@@ -8,21 +8,16 @@ interface IButtonsTaskProps {
 }
 
 export const ButtonsTask = ({ id, status }: IButtonsTaskProps) => {
-  const router = useRouter()
+  const { finishTask, deleteTask } = useTasks()
 
   const handleFinishTask = async () => {
-    await fetch(`http://localhost:3000/api/tasks/${id}`, {
-      method: 'PUT',
-    })
+    finishTask(id)
   }
 
   const handleDeleteTask = async () => {
-    await fetch(`http://localhost:3000/api/tasks/${id}`, {
-      method: 'DELETE',
-    }).then((res) => {
-      router.push('/')
-    })
+    deleteTask(id)
   }
+
   return (
     <div className="flex items-center gap-4">
       {status === 'pendente' && (
