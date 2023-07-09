@@ -1,35 +1,19 @@
-import { api } from '@/services/api'
-import { useRouter } from 'next/navigation'
+'use client'
+import { useRouter, usePathname } from 'next/navigation'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { toast } from 'react-toastify'
+import { api } from '@/services/api'
 
-interface ITasksProps {
-  id: string
-  title: string
-  status: string
-  dateConclusion: string
-  description: string
-  createdAt: Date
-  userId: string
-}
-
-interface IFormProps {
-  title: string
-  dateConclusion: string
-  description: string
-}
-
-interface IUseTasksProps {
-  tasks: ITasksProps[] | undefined
-  finishTask: (id: string) => void
-  deleteTask: (id: string) => void
-  createTask: (task: IFormProps) => void
-  loadingCreate: boolean
-}
+import {
+  IFormProps,
+  IUseTasksProps,
+  ITasksProps,
+} from '@/Types/hooks/UseTasksTypes'
 
 export const useTasks = (): IUseTasksProps => {
   const queryClient = useQueryClient()
   const router = useRouter()
+  const pathname = usePathname()
 
   const { mutate: createTask, isLoading: loadingCreate } = useMutation(
     async (data: IFormProps) => {
@@ -42,7 +26,6 @@ export const useTasks = (): IUseTasksProps => {
       onSuccess: () => {
         queryClient.refetchQueries(['tasks'])
 
-        router.push('/')
         toast.success('Tarefa criada com sucesso!')
       },
     },
@@ -104,7 +87,10 @@ export const useTasks = (): IUseTasksProps => {
 
           queryClient.setQueryData(['tasks'], tasksUpdated)
 
-          router.push('/')
+          if (pathname.includes('/task')) {
+            router.push('/')
+          }
+
           toast.success('Tarefa deletada com sucesso!')
         }
       },
