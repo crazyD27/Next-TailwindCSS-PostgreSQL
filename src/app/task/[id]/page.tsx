@@ -24,11 +24,17 @@ interface ITasksProps {
 }
 
 const Task = ({ params: { id } }: IParamProps) => {
-  const { data: task } = useQuery([id], async () => {
-    const response = await api.get<ITasksProps>(`/tasks/${id}`)
+  const { data: task } = useQuery(
+    [id],
+    async () => {
+      const response = await api.get<ITasksProps>(`/tasks/${id}`)
 
-    return response.data
-  })
+      return response.data
+    },
+    {
+      staleTime: 60 * 100 * 3,
+    },
+  )
 
   return (
     <div className="m-auto w-full max-w-[500px]">
