@@ -36,9 +36,10 @@ export async function POST(request: NextRequest) {
     title: z.string(),
     dateConclusion: z.string(),
     description: z.string(),
+    color: z.string(),
   })
 
-  const { title, dateConclusion, description } = taskShema.parse(
+  const { title, dateConclusion, description, color } = taskShema.parse(
     await request.json(),
   )
 
@@ -47,6 +48,7 @@ export async function POST(request: NextRequest) {
       title,
       dateConclusion,
       description,
+      color,
       userId: session.user.id as string,
     },
   })
