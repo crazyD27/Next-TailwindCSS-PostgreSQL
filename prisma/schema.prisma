@@ -59,6 +59,7 @@ model Task {
   title          String
   status         String   @default("pendente")
   dateConclusion String
+  color          String
   description    String
   createdAt      DateTime @default(now())
   userId         String
