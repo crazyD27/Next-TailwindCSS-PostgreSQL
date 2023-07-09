@@ -1,6 +1,7 @@
 'use client'
 import { useTasks } from '@/hooks/useTasks'
-import { Check, Trash2 } from 'lucide-react'
+import { Check } from 'lucide-react'
+import DeleteButton from './DeleteButton'
 
 interface IButtonsTaskProps {
   id: string
@@ -8,14 +9,10 @@ interface IButtonsTaskProps {
 }
 
 export const ButtonsTask = ({ id, status }: IButtonsTaskProps) => {
-  const { finishTask, deleteTask } = useTasks()
+  const { finishTask } = useTasks()
 
   const handleFinishTask = async () => {
     finishTask(id)
-  }
-
-  const handleDeleteTask = async () => {
-    deleteTask(id)
   }
 
   return (
@@ -28,12 +25,7 @@ export const ButtonsTask = ({ id, status }: IButtonsTaskProps) => {
           <Check className="text-green-500" size={25} />
         </button>
       )}
-      <button
-        onClick={handleDeleteTask}
-        className="cursor-pointer bg-transparent"
-      >
-        <Trash2 className="text-red-500" size={25} />
-      </button>
+      <DeleteButton id={id} />
     </div>
   )
 }
