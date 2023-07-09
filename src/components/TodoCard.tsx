@@ -1,15 +1,8 @@
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
-import { formateDateToShow } from '@/utils/formateDate'
 import DeleteButton from './DeleteButton'
-
-interface ITodoCardProps {
-  id: string
-  title: string
-  dateConclusion: string
-  status: string
-  color: string
-}
+import { formateDateToShow } from '@/utils/formateDate'
+import { ITodoCardProps } from '@/Types/components/TodoCardTypes'
 
 export const TodoCard = ({
   id,

@@ -1,12 +1,9 @@
-import React, { ReactNode } from 'react'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
+import { IGlobalContainerProps } from '@/Types/components/GlobalContainerTypes'
 
-interface IGlobalContainerProps {
-  children: ReactNode
-}
 export const GlobalContainer = ({ children }: IGlobalContainerProps) => {
   return (
     <>

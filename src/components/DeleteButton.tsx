@@ -1,12 +1,9 @@
 'use client'
 
+import { IDeleteButtonProps } from '@/Types/components/DeleteButtonTypes'
 import { useTasks } from '@/hooks/useTasks'
 import { Trash2 } from 'lucide-react'
 import React from 'react'
-
-interface IDeleteButtonProps {
-  id: string
-}
 
 const DeleteButton = ({ id }: IDeleteButtonProps) => {
   const { deleteTask } = useTasks()
